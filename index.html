@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./countdown.js"></script>
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding-top: 20vh;
+        text-align: center;
+      }
+
+      #start-date {
+        width: 100%;
+        font-size: 4.5em;
+        margin-bottom: 50px;
+      }
+
+      h1 {
+        font-size: 5em;
+        font-family: sans-serif;
+        margin: 0;
+        text-align: left;
+      }
+
+      .box {
+        width: 80%;
+        max-width: 500px;
+      }
+    </style>
+    <title>How many days are you?</title>
+
+    <div class="box">
+      <input type="date" id="start-date" name="start-date" value="1992-01-17" />
+    </div>
+    <div class="box">
+      <h1>I'm</h1>
+      <h1 id="days">0 days</h1>
+      <h1 id="hours">0 hours</h1>
+      <h1 id="minutes">0 minutes</h1>
+      <h1 id="seconds">0 seconds</h1>
+    </div>
+
+    <script>
+      const TIME = ["days", "hours", "minutes", "seconds"];
+
+      function startCountdown() {
+        const startDate = new Date(document.getElementById("start-date").value);
+        const endDate = Date.now();
+
+        const countdownObject = countdown(
+          startDate,
+          endDate,
+          countdown.DAYS |
+            countdown.HOURS |
+            countdown.MINUTES |
+            countdown.SECONDS |
+            countdown.MILLISECONDS
+        );
+
+        TIME.forEach((i) => {
+          document.getElementById(i).innerText = `${countdownObject[i]} ${i}`;
+        });
+
+        setTimeout(function () {
+          startCountdown();
+        }, 1000);
+      }
+
+      startCountdown();
+    </script>
+  </head>
+  <body></body>
+</html>
